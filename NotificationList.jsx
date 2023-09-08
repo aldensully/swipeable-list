@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import { useEffect, useState } from 'react';
 import {  ScrollView } from 'react-native-gesture-handler';
-
+import NotificationItem from './NotificationItem';
 
 const NotificationList = () => {
   const [notifications, setNotifications] = useState(null);
@@ -30,7 +30,7 @@ const NotificationList = () => {
         }}
       >
         {notifications?.map(noti => (
-            <NotificationPreview notification={noti} key={noti.id} removeNotification={removeNotification} />
+            <NotificationItem notification={noti} key={noti.id} removeNotification={removeNotification} />
         ))}
       </ScrollView>
     </View>
