@@ -11,7 +11,7 @@ const NotificationItem = ({ notification, removeNotification}) => {
     const startX = useSharedValue(0);
     const hasReachedThreshold = useSharedValue(false);
     const windowWidth = Dimensions.get('window').width;
-    const widthRange = windowWidth / 3;
+    const threshold = windowWidth / 3;
     const animHeight = useSharedValue(65);
     const deleteAnimTextOpacity = useSharedValue(1);
   
@@ -29,7 +29,7 @@ const NotificationItem = ({ notification, removeNotification}) => {
   
   
     const deleteAnimStyle = useAnimatedStyle(() => {
-      const deleteOpacity = interpolate(offsetX.value, [-widthRange, 0], [1, 0], 'clamp');
+      const deleteOpacity = interpolate(offsetX.value, [-threshold, 0], [1, 0], 'clamp');
       return {
         position: 'absolute',
         right: -windowWidth,
@@ -56,7 +56,7 @@ const NotificationItem = ({ notification, removeNotification}) => {
   
     const panGesture = Gesture.Pan()
       .onUpdate((e) => {
-        if (offsetX.value <= -widthRange) {
+        if (offsetX.value <= -threshold) {
           if (hasReachedThreshold.value === false) {
             runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Medium);
             hasReachedThreshold.value = true;
